@@ -7,7 +7,7 @@
         :height="dimensions.y"
         :width="dimensions.x"
       >
-        <pixi-sprite  src="/img/logo.png" :x="dimensions.x / 2" :y="dimensions.y / 2 + 40 * Math.sin(t / 20)" :anchorX="0.5" :anchorY="0.5" />
+        <VueLogo :t="t" />
       </pixi-renderer>
     </section>
 
@@ -33,9 +33,10 @@
 <script>
 import CoordinateField from '../components/CoordinateField.vue'
 import ColorField from '../components/ColorField.vue'
+import VueLogo from '../components/VueLogo.vue'
 
 export default {
-  components: { CoordinateField, ColorField },
+  components: { CoordinateField, ColorField, VueLogo },
   data () {
     return {
       t: 0,

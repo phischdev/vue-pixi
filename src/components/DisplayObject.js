@@ -39,10 +39,15 @@ export default {
   computed: {
     instance: () => new DisplayObject()
   },
-  inject: ['pixiObjects'],
-  provide () {
+  provide() {
     const vm = this
-    return { pixiObject: { get inst () { return vm.instance } } }
+    return {
+      pixiObject: {
+        get() {
+          return vm.instance
+        }
+      }
+    }
   },
   // created () { this.vglNamespace.update() },
   // beforeUpdate () { this.vglNamespace.update() },
@@ -54,9 +59,13 @@ export default {
   },
   watch: {
     'instance': {
-      handler (newInstance, oldInstance) {
+        // find container of newInstace
+        let parent = this.$parent
+        while (parent && !parent.instance) {
+          parent = parent.$parent
+        }
         if (oldInstance && oldInstance.parent) oldInstance.parent.removeChild(oldInstance)
-        if (this.$parent.instance) this.$parent.instance.addChild(newInstance)
+        if (parent.instance) parent.instance.addChild(newInstance)
         if (this.x) newInstance.x = this.x
         if (this.y) newInstance.y = this.y
         if (this.alpha) newInstance.alpha = this.alpha
@@ -70,7 +79,9 @@ export default {
       },
       immediate: true
     },
-    '$parent.instance': function parentInstance (instance) { this.instance.setParent(instance) },
+    '$parent.instance': function parentInstance(instance) {
+      this.instance.setParent(instance)
+    },
     'x': function (x) { this.instance.x = x },
     'y': function (y) { this.instance.y = y },
     'alpha': function (alpha) { this.instance.alpha = alpha },
