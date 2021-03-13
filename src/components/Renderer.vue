@@ -38,7 +38,7 @@ export default {
     return {
       app: this.app,
       stage: this.stage,
-      renderer: this.render,
+      renderer: this.renderer,
       parentContainer: this.stage,
       pixiObjects: this.pixiObjects
     }
