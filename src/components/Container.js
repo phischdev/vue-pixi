@@ -11,9 +11,14 @@ export default {
   computed: {
     instance: () => new Container()
   },
+  provide() {
+    return {
+      parentContainer: this.instance
+    }
+  },
   watch: {
     'instance': {
-      handler (instance) {
+      handler(instance) {
         if (this.width) instance.width = this.width
         if (this.height) instance.height = this.height
         if (this.interactiveChildren) instance.interactiveChildren = this.interactiveChildren
@@ -24,5 +29,5 @@ export default {
     'height': function (height) { this.instance.height = height },
     'interactiveChildren': function (interactiveChildren) { this.instance.interactiveChildren = interactiveChildren }
   },
-  render (h) { return this.$slots.default ? h('div', this.$slots.default) : undefined }
+  render(h) { return this.$slots.default ? h('div', this.$slots.default) : undefined }
 }

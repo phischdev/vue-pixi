@@ -37,6 +37,9 @@ export default {
   provide () {
     return {
       app: this.app,
+      stage: this.stage,
+      renderer: this.render,
+      parentContainer: this.stage,
       pixiObjects: this.pixiObjects
     }
   },

@@ -39,6 +39,7 @@ export default {
   computed: {
     instance: () => new DisplayObject()
   },
+  inject: ['pixiObjects', 'parentContainer'],
   provide() {
     const vm = this
     return {
@@ -51,23 +52,29 @@ export default {
   },
   // created () { this.vglNamespace.update() },
   // beforeUpdate () { this.vglNamespace.update() },
-  beforeDestroy () {
+  beforeDestroy() {
     const { pixiObjects, instance, name } = this
-    if (instance.parent) instance.parent.removeChild(instance)
+    this.parentContainer.removeChild(instance)
+    // if (instance.parent) instance.parent.removeChild(instance)
     if (pixiObjects[name] === instance) delete pixiObjects[name]
     // vglNamespace.update();
   },
   watch: {
     'instance': {
-        // find container of newInstace
-        let parent = this.$parent
-        while (parent && !parent.instance) {
-          parent = parent.$parent
-        }
+      handler(newInstance, oldInstance) {
+
+        // // find container of newInstace
+        // let parent = this.$parent
+        // while (parent && !parent.instance) {
+        //   parent = parent.$parent
+        // }
+
         if (oldInstance && oldInstance.parent) oldInstance.parent.removeChild(oldInstance)
-        if (parent.instance) parent.instance.addChild(newInstance)
+        // if (parent.instance) parent.instance.addChild(newInstance)
+        this.parentContainer.addChild(newInstance)
         if (this.x) newInstance.x = this.x
         if (this.y) newInstance.y = this.y
+
         if (this.alpha) newInstance.alpha = this.alpha
         if (this.cursor) newInstance.cursor = this.cursor
         if (this.rotation) newInstance.rotation = this.rotation
@@ -94,7 +101,7 @@ export default {
     'scaleY': function (scaleY) { this.instance.scale.y = scaleY },
     'pivotX': function (pivotX) { this.instance.pivot.x = pivotX },
     'pivotY': function (pivotY) { this.instance.pivot.y = pivotY },
-    'name' (newName, oldName) {
+    'name'(newName, oldName) {
       const { pixiObjects, instance } = this
       if (pixiObjects[oldName] === instance) delete pixiObjects[oldName]
       pixiObjects[newName] = instance
