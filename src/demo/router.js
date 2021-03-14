@@ -19,6 +19,11 @@ export default new Router({
     name: 'viewport',
     component: () => import('./pages/viewport.vue')
   }, {
+    path: '/events',
+    name: 'events',
+    component: () => import('./pages/events.vue')
+  },
+  {
     path: '/sprite',
     name: 'sprite',
     component: () => import('./pages/sprite.vue')

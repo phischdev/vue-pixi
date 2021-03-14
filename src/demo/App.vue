@@ -13,6 +13,7 @@
           <li><router-link to="/sprite">Sprite</router-link></li>
           <li><router-link to="/text">Text</router-link></li>
           <li><router-link to="/viewport">Viewport</router-link></li>
+          <li><router-link to="/events">Events</router-link></li>
         </ul>
       </aside>
     </div>

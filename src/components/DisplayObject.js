@@ -10,6 +10,11 @@ import { DisplayObject } from 'pixi.js'
  * VglObject3d components inside default slots are added as children.
  */
 
+let pixiEvents = new Set([
+  'pointerdown',
+  'mousedown'
+])
+
 export default {
   props: {
     alpha: Number,
@@ -37,7 +42,9 @@ export default {
     y: Number
   },
   computed: {
-    instance: () => new DisplayObject()
+    instance() {
+      return new DisplayObject()
+    }
   },
   inject: ['pixiObjects', 'parentContainer'],
   provide() {
@@ -62,19 +69,26 @@ export default {
   render() {
     return null;
   },
+  methods: {
+    addEvents() {
+      // let listenedEvents = Object.keys(this._events)
+      for (let event in this._events) {
+        if (pixiEvents.has(event)) {
+          this.instance.interactive = true
+          this.instance.on(event, (e) => {
+            this.$emit(event, e)
+          })
+        }
+      }
+    }
+  },
   watch: {
     'instance': {
       handler(newInstance, oldInstance) {
-
-        // // find container of newInstace
-        // let parent = this.$parent
-        // while (parent && !parent.instance) {
-        //   parent = parent.$parent
-        // }
-
         if (oldInstance && oldInstance.parent) oldInstance.parent.removeChild(oldInstance)
         // if (parent.instance) parent.instance.addChild(newInstance)
         this.parentContainer.addChild(newInstance)
+        this.addEvents()
         if (this.x) newInstance.x = this.x
         if (this.y) newInstance.y = this.y
 
