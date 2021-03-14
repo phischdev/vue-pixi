@@ -4,18 +4,36 @@
       <pixi-renderer
         @tick="update"
         :backgroundColor="0x0078FF"
-        :height="480"
         :width="640"
+        :height="480"
       >
-        <pixi-sprite :src="image"
-          :x="position.x" :y="position.y"
-          :anchorX="anchor.x" :anchorY="anchor.y"
-          :skewX="skew.x" :skewY="skew.y"
-          :scaleX="scale.x" :scaleY="scale.y"
-          :pivotX="pivot.x" :pivotY="pivot.y"
-          :rotation="Math.PI / 180 * rotation"
-          :alpha="alpha"
-        />
+        <pixi-view-port
+            :worldWidth="1000"
+            :worldHeight="1000"
+            :screenWidth="640"
+            :screenHeight="480"
+            >
+                <pixi-sprite :src="image"
+                :x="position.x" :y="position.y"
+                :anchorX="anchor.x" :anchorY="anchor.y"
+                :skewX="skew.x" :skewY="skew.y"
+                :scaleX="scale.x" :scaleY="scale.y"
+                :pivotX="pivot.x" :pivotY="pivot.y"
+                :rotation="Math.PI / 180 * rotation"
+                :alpha="alpha"
+                />
+
+                <pixi-sprite :src="image"
+                :x="position.x + 20" :y="position.y - 20"
+                :anchorX="anchor.x" :anchorY="anchor.y"
+                :skewX="-skew.x" :skewY="skew.y"
+                :scaleX="scale.x" :scaleY="scale.y"
+                :pivotX="pivot.x" :pivotY="pivot.y"
+                :rotation="-Math.PI / 180 * rotation"
+                :alpha="alpha"
+                />
+
+        </pixi-view-port>
       </pixi-renderer>
     </section>
 
@@ -33,7 +51,6 @@
                 <option value="/img/001.png">Bulbizarre</option>
                 <option value="/img/004.png">Salamèche</option>
                 <option value="/img/007.png">Carapuce</option>
-                <option :value="dataUri.image">DataUri</option>
               </select>
             </p>
           </div>
@@ -107,7 +124,6 @@
 <script>
 import CoordinateField from '../components/CoordinateField.vue'
 import ColorField from '../components/ColorField.vue'
-import dataUri from '../assets/dataUri.json'
 
 export default {
   components: { CoordinateField, ColorField },
@@ -121,8 +137,7 @@ export default {
       pivot: { x: 0, y: 0 },
       skew: { x: 0, y: 0 },
       rotation: 0,
-      alpha: 1,
-      dataUri
+      alpha: 1
     }
   },
   methods: {

@@ -59,6 +59,9 @@ export default {
     if (pixiObjects[name] === instance) delete pixiObjects[name]
     // vglNamespace.update();
   },
+  render() {
+    return null;
+  },
   watch: {
     'instance': {
       handler(newInstance, oldInstance) {

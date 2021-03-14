@@ -15,6 +15,10 @@ export default new Router({
     name: 'renderer',
     component: () => import('./pages/renderer.vue')
   }, {
+    path: '/viewport',
+    name: 'viewport',
+    component: () => import('./pages/viewport.vue')
+  }, {
     path: '/sprite',
     name: 'sprite',
     component: () => import('./pages/sprite.vue')

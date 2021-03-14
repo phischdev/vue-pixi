@@ -12,6 +12,7 @@
           <li><router-link to="/container">Container</router-link></li>
           <li><router-link to="/sprite">Sprite</router-link></li>
           <li><router-link to="/text">Text</router-link></li>
+          <li><router-link to="/viewport">Viewport</router-link></li>
         </ul>
       </aside>
     </div>

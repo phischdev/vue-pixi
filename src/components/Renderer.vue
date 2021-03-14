@@ -1,7 +1,7 @@
 <template>
   <div class="pixi-renderer">
     <!-- All child <template> elements get added in here -->
-    <slot></slot>
+    <slot v-if="isMounted"></slot>
   </div>
 </template>
 
@@ -29,9 +29,13 @@ export default {
     if (this.resolution) options.resolution = this.resolution
     if (this.roundPixels) options.roundPixels = this.roundPixels
     if (this.transparent) options.transparent = this.transparent
+
+    let app = new Application(options)
+
     return {
-      app: new Application(options),
-      pixiObjects: {}
+      app,
+      pixiObjects: {},
+      isMounted: false
     }
   },
   provide () {
@@ -51,6 +55,9 @@ export default {
   mounted () {
     this.$el.appendChild(this.app.view)
     this.app.ticker.add(delta => this.$emit('tick', delta))
+    this.$nextTick(() => {
+      this.isMounted = true
+    })
   },
   watch: {
     'autoResize': function (autoResize) { this.renderer.autoResize = autoResize },

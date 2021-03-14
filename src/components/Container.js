@@ -29,5 +29,11 @@ export default {
     'height': function (height) { this.instance.height = height },
     'interactiveChildren': function (interactiveChildren) { this.instance.interactiveChildren = interactiveChildren }
   },
-  render(h) { return this.$slots.default ? h('div', this.$slots.default) : undefined }
+  render(h) {
+    if (this.$slots.default) {
+      return h('div', this.$slots.default)
+    } else {
+      return null
+    }
+  }
 }

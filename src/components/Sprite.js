@@ -1,8 +1,10 @@
 import Container from './Container.js'
-import { Sprite } from 'pixi.js'
+import { Sprite, Texture } from 'pixi.js'
+import DisplayObject from './DisplayObject.js'
 
 export default {
-  mixins: [Container],
+  // mixins: [Container],
+  mixins: [DisplayObject],
   props: {
     anchorX: Number,
     anchorY: Number,
@@ -15,11 +17,21 @@ export default {
     src: String
   },
   computed: {
-    instance () { return this.src ? Sprite.fromImage(this.src) : new Sprite() }
+    instance() {
+      if (this.src && this.src.startsWith('data:image/')) {
+        let dataUri = decodeURIComponent(this.src);
+        let dataTexture = Texture.fromImage(dataUri);
+        return new Sprite(dataTexture)
+      } else if (this.src) {
+        return Sprite.fromImage(this.src)
+      } else {
+        return new Sprite()
+      }
+    }
   },
   watch: {
     'instance': {
-      handler (instance) {
+      handler(instance) {
         if (this.tint) instance.text = this.tint
         if (this.blendMode) instance.blendMode = this.blendMode
         if (this.anchorX || this.anchorY) instance.anchor.set(this.anchorX || 0, this.anchorY || 0)
