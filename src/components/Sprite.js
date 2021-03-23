@@ -1,9 +1,7 @@
-import Container from './Container.js'
 import { Sprite, Texture } from 'pixi.js'
 import DisplayObject from './DisplayObject.js'
 
 export default {
-    // mixins: [Container],
     mixins: [DisplayObject],
     props: {
         anchorX: Number,
@@ -14,7 +12,8 @@ export default {
         // shader
         // texture
         tint: Number,
-        src: String
+        src: String,
+        texture: Object
     },
     computed: {
         instance() {
@@ -24,6 +23,8 @@ export default {
                 return new Sprite(dataTexture);
             } else if (this.src) {
                 return Sprite.from(this.src);
+            } else if (this.texture) {
+                return new Sprite(this.texture);
             } else {
                 return new Sprite();
             }
@@ -38,10 +39,12 @@ export default {
             },
             immediate: true
         },
-
         'tint': function (tint) { this.instance.tint = tint },
         'blendMode': function (blendMode) { this.instance.blendMode = blendMode },
         'anchorX': function (anchorX) { this.instance.anchor.x = anchorX },
-        'anchorY': function (anchorY) { this.instance.anchor.y = anchorY }
+        'anchorY': function (anchorY) { this.instance.anchor.y = anchorY },
+        'texture': function (texture) { 
+            this.instance.texture = texture
+         }
     }
 }

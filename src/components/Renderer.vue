@@ -53,7 +53,7 @@ export default {
     },
     mounted() {
         this.$el.appendChild(this.app.view);
-        this.app.ticker.add(delta => this.$emit('tick', delta));
+        this.app.ticker.add(delta => this.$emit('tick', delta, { app: this.app, renderer: this.app.renderer, stage: this.app.stage }));
         this.$nextTick(() => {
             this.isMounted = true;
         });
