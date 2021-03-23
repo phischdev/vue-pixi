@@ -35,5 +35,9 @@ export default new Router({
     path: '/container',
     name: 'container',
     component: () => import('./pages/container.vue')
+  }, {
+    path: '/trippyAnimation',
+    name: 'trippyAnimation',
+    component: () => import('./pages/trippyAnimation.vue')
   }]
 })

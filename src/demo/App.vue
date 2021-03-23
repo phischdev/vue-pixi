@@ -14,6 +14,7 @@
           <li><router-link to="/text">Text</router-link></li>
           <li><router-link to="/viewport">Viewport</router-link></li>
           <li><router-link to="/events">Events</router-link></li>
+          <li><router-link to="/trippyAnimation">Trippy Animation</router-link></li>
         </ul>
       </aside>
     </div>
