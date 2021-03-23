@@ -46,25 +46,12 @@ export default {
       return new DisplayObject()
     }
   },
-  inject: ['pixiObjects', 'parentContainer'],
-  provide() {
-    const vm = this
-    return {
-      pixiObject: {
-        get() {
-          return vm.instance
-        }
-      }
-    }
-  },
+  inject: ['parentContainer'],
   // created () { this.vglNamespace.update() },
   // beforeUpdate () { this.vglNamespace.update() },
   beforeDestroy() {
-    const { pixiObjects, instance, name } = this
+    const { instance } = this
     this.parentContainer.removeChild(instance)
-    // if (instance.parent) instance.parent.removeChild(instance)
-    if (pixiObjects[name] === instance) delete pixiObjects[name]
-    // vglNamespace.update();
   },
   render() {
     return null;
@@ -99,7 +86,6 @@ export default {
         if (this.skewX || this.skewY) newInstance.skew.set(this.skewX || 1, this.skewY || 1)
         if (this.scaleX || this.scaleY) newInstance.scale.set(this.scaleX || 1, this.scaleY || 1)
         if (this.pivotX || this.pivotY) newInstance.pivot.set(this.pivotX || 1, this.pivotY || 1)
-        if (this.name !== undefined) this.pixiObjects[this.name] = newInstance
       },
       immediate: true
     },
@@ -117,11 +103,6 @@ export default {
     'scaleX': function (scaleX) { this.instance.scale.x = scaleX },
     'scaleY': function (scaleY) { this.instance.scale.y = scaleY },
     'pivotX': function (pivotX) { this.instance.pivot.x = pivotX },
-    'pivotY': function (pivotY) { this.instance.pivot.y = pivotY },
-    'name'(newName, oldName) {
-      const { pixiObjects, instance } = this
-      if (pixiObjects[oldName] === instance) delete pixiObjects[oldName]
-      pixiObjects[newName] = instance
-    }
+    'pivotY': function (pivotY) { this.instance.pivot.y = pivotY }
   }
 }

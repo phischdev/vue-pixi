@@ -12,10 +12,10 @@
     "Graphics",
     "Canvas"
   ],
-  "homepage": "https://github.com/Granipouss/vue-pixi",
+  "homepage": "https://github.com/phischdev/vue-pixi",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Granipouss/vue-pixi.git"
+    "url": "https://github.com/phischdev/vue-pixi.git"
   },
   "license": "MIT",
   "scripts": {
@@ -26,7 +26,8 @@
   },
   "main": "./dist/vue-pixi.common.js",
   "dependencies": {
-    "pixi.js": "^4.8.1",
+    "pixi-viewport": "^4.21.3",
+    "pixi.js": "^5.3.8",
     "vue": "^2.5.17"
   },
   "devDependencies": {
