@@ -51,12 +51,12 @@ export default {
             if (this.renderTexture === this.renderTexture1) {
                 this.renderTexture = this.renderTexture2;
                 this.$nextTick(() => {
-                    renderer.render(stage, this.renderTexture1);
+                    renderer.render(stage, this.renderTexture1, false);
                 });
             } else if (this.renderTexture === this.renderTexture2) {
                 this.renderTexture = this.renderTexture1;
                 this.$nextTick(() => {
-                    renderer.render(stage, this.renderTexture2);
+                    renderer.render(stage, this.renderTexture2, false);
                 });
             }
 
